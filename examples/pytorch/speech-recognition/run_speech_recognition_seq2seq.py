@@ -49,9 +49,9 @@ from transformers.utils.versions import require_version
 
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
-check_min_version("4.39.0.dev0")
+#check_min_version("4.39.0.dev0")
 
-require_version("datasets>=1.18.0", "To fix: pip install -r examples/pytorch/speech-recognition/requirements.txt")
+#require_version("datasets>=1.18.0", "To fix: pip install -r examples/pytorch/speech-recognition/requirements.txt")
 
 logger = logging.getLogger(__name__)
 
@@ -359,13 +359,28 @@ def main():
     if training_args.do_train:
         raw_datasets["train"] = load_dataset(
             data_args.dataset_name,
+            split=data_args.train_split_name,
+            data_dir="/DB/DB_single_ch"
+        )
+        
+        """
+        raw_datasets["train"] = load_dataset(
+            data_args.dataset_name,
             data_args.dataset_config_name,
             split=data_args.train_split_name,
             cache_dir=model_args.cache_dir,
             token=model_args.token,
         )
+        """ 
 
     if training_args.do_eval:
+        raw_datasets["eval"] = load_dataset(
+            data_args.dataset_name,
+            split=data_args.train_split_name,
+            data_dir="/DB/DB_single_ch"
+        )
+        
+        """
         raw_datasets["eval"] = load_dataset(
             data_args.dataset_name,
             data_args.dataset_config_name,
@@ -373,6 +388,8 @@ def main():
             cache_dir=model_args.cache_dir,
             token=model_args.token,
         )
+        """
+
 
     if data_args.audio_column_name not in next(iter(raw_datasets.values())).column_names:
         raise ValueError(
