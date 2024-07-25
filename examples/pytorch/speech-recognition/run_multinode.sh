@@ -1,16 +1,20 @@
+echo node"$1"
 torchrun \
+   --nnodes=2 \
    --nproc_per_node 8 \
+   --node_rank $1 \
+   --master_addr 10.100.200.202 \
    run_speech_recognition_seq2seq.py \
-	--model_name_or_path="openai/whisper-large-v3" \
+	--model_name_or_path="openai/whisper-large-v2" \
 	--dataset_name="audiofolder" \
         --dataloader_num_workers="9" \
 	--language="korean" \
 	--train_split_name="train" \
 	--eval_split_name="validation" \
 	--max_steps="5000" \
-	--output_dir="./whisper-largev3-ko" \
+	--output_dir="./whisper-largev2-ko" \
 	--per_device_train_batch_size="32" \
-	--gradient_accumulation_steps="1" \
+	--gradient_accumulation_steps="2" \
 	--per_device_eval_batch_size="4" \
 	--logging_steps="25" \
 	--learning_rate="1e-5" \

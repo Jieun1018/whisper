@@ -360,9 +360,9 @@ def main():
         raw_datasets["train"] = load_dataset(
             data_args.dataset_name,
             split=data_args.train_split_name,
-            data_dir="/DB/DB_single_ch"
+            data_dir="/workspace/prompt-whisper/DB_single_ch"
         )
-        
+
         """
         raw_datasets["train"] = load_dataset(
             data_args.dataset_name,
@@ -376,8 +376,8 @@ def main():
     if training_args.do_eval:
         raw_datasets["eval"] = load_dataset(
             data_args.dataset_name,
-            split=data_args.train_split_name,
-            data_dir="/DB/DB_single_ch"
+            split=data_args.eval_split_name,
+            data_dir="/workspace/prompt-whisper/DB_single_ch"
         )
         
         """
